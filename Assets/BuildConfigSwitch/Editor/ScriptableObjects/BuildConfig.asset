@@ -25,4 +25,4 @@ MonoBehaviour:
   minSdkVersion: 26
   targetSdkVersion: 0
   androidArchitecture: 2
-  AppBundle_aab: 0
+  appBundle_aab: 0

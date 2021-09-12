@@ -1,0 +1,9 @@
+﻿{
+    "name": "BuildConfigSwitchTests",
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ]
+}

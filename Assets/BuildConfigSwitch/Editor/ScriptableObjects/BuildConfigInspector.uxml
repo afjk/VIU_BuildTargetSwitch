@@ -19,6 +19,7 @@
             <editor:EnumField name="minSdkVersion" binding-path="minSdkVersion" />
             <editor:EnumField name="targetSdkVersion" binding-path="targetSdkVersion" />
             <editor:EnumField name="androidArchitecture" binding-path="androidArchitecture" />
+            <engine:Toggle text="Build App Bundle(aab)"  name="" binding-path="appBundle_aab" />
         </engine:Foldout>
     </engine:Box>
 </engine:UXML>

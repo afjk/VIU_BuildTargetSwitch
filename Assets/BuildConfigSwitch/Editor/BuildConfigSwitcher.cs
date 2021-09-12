@@ -57,14 +57,30 @@ namespace AFJK.BuildConfigSwitch
 
         public void ApplyPackage()
         {
-            foreach (var package in buildParam.addPackages)
+            if (buildParam.addPackages != null && buildParam.addPackages.Length > 0)
             {
-                var request = Client.Add(package);
-                while (! request.IsCompleted)
+                foreach (var package in buildParam.addPackages)
                 {
-                    Thread.Sleep(100);
+                    var request = Client.Add(package);
+                    while (! request.IsCompleted)
+                    {
+                        Thread.Sleep(100);
+                    }
                 }
             }
+
+            if (buildParam.removePackages != null && buildParam.removePackages.Length > 0)
+            {
+                foreach (var package in buildParam.removePackages)
+                {
+                    var request = Client.Remove(package);
+                    while (! request.IsCompleted)
+                    {
+                        Thread.Sleep(100);
+                    }
+                }
+            }
+            
         }
     }
 }

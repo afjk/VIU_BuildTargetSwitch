@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Runtime.Remoting;
 using System.Threading;
 using AFJK.BuildConfigSwitch;
@@ -91,27 +92,51 @@ namespace Tests
         }
 
         [Test]
-        public void InstallPackageTest()
+        public void ApplyPackageTest()
         {
             var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
             testConfigSO.buildTarget = BuildTarget.Android;
+            
+            // パッケージ追加
             testConfigSO.addPackages = new[] {"com.unity.xr.oculus", "com.htc.upm.wave.xrsdk@4.1.1-r.3.1"};
             
             var buildConfig = new BuildConfigSwitcher(testConfigSO);
             buildConfig.ApplyPackage();
 
-            var request = Client.List();
+            var request1 = Client.List();
 
-            while (! request.IsCompleted)
+            while (! request1.IsCompleted)
             {
                 Thread.Sleep(100);
             }
 
-            var result = request.Result;
+            var result = request1.Result;
             var oculusPackage = result.First(x => x.name == "com.unity.xr.oculus");
             Assert.AreEqual("com.unity.xr.oculus",  oculusPackage.name);
             var wavePackage = result.First(x => x.name == "com.htc.upm.wave.xrsdk");
             Assert.AreEqual("com.htc.upm.wave.xrsdk",  wavePackage.name);
+            
+
+            // パッケージ削除
+            testConfigSO.addPackages = null;
+            testConfigSO.removePackages = new[] {"com.unity.xr.oculus"};
+            
+            buildConfig.ApplyPackage();
+
+            var request2 = Client.List();
+
+            while (! request2.IsCompleted)
+            {
+                Thread.Sleep(100);
+            }
+
+            result = request2.Result;
+
+            var oculusPackageEnumerable = result.Where(x => x.name == "com.unity.xr.oculus");
+            Assert.IsEmpty(oculusPackageEnumerable);
+            wavePackage = result.First(x => x.name == "com.htc.upm.wave.xrsdk");
+            Assert.AreEqual("com.htc.upm.wave.xrsdk",  wavePackage.name);
         }
+        
     }
 }

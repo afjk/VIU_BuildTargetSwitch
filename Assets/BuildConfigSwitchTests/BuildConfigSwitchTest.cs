@@ -1,7 +1,10 @@
 ﻿using System.Linq;
+using System.Runtime.Remoting;
+using System.Threading;
 using AFJK.BuildConfigSwitch;
 using NUnit.Framework;
 using UnityEditor;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -85,6 +88,30 @@ namespace Tests
             
             Assert.IsTrue(defineSymbolList.Contains("TestDefine1"));
             Assert.IsFalse(defineSymbolList.Contains("TestDefine2"));
+        }
+
+        [Test]
+        public void InstallPackageTest()
+        {
+            var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
+            testConfigSO.buildTarget = BuildTarget.Android;
+            testConfigSO.addPackages = new[] {"com.unity.xr.oculus", "com.htc.upm.wave.xrsdk@4.1.1-r.3.1"};
+            
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+            buildConfig.ApplyPackage();
+
+            var request = Client.List();
+
+            while (! request.IsCompleted)
+            {
+                Thread.Sleep(100);
+            }
+
+            var result = request.Result;
+            var oculusPackage = result.First(x => x.name == "com.unity.xr.oculus");
+            Assert.AreEqual("com.unity.xr.oculus",  oculusPackage.name);
+            var wavePackage = result.First(x => x.name == "com.htc.upm.wave.xrsdk");
+            Assert.AreEqual("com.htc.upm.wave.xrsdk",  wavePackage.name);
         }
     }
 }

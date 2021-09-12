@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using NUnit.Framework.Constraints;
 using UnityEditor;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace AFJK.BuildConfigSwitch
@@ -50,6 +52,18 @@ namespace AFJK.BuildConfigSwitch
                     return BuildTargetGroup.Standalone;
                 default:
                     throw new Exception($"Unknown BuildTarget:{buildTarget}");
+            }
+        }
+
+        public void ApplyPackage()
+        {
+            foreach (var package in buildParam.addPackages)
+            {
+                var request = Client.Add(package);
+                while (! request.IsCompleted)
+                {
+                    Thread.Sleep(100);
+                }
             }
         }
     }

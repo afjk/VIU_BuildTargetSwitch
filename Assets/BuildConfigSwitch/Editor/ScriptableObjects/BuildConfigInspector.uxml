@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
+>
+    <engine:Box>
+        <editor:PropertyField binding-path="graphicsDeviceTypes" />
+        <editor:PropertyField binding-path="addDefines" />
+        <editor:PropertyField binding-path="removeDefines"/>
+        <editor:PropertyField binding-path="addPackages" />
+        <editor:PropertyField binding-path="removePackages"/>
+        <editor:PropertyField binding-path="evacuateFilesPath"/>
+        <engine:Toggle text="Legacy VR Supported" binding-path="legacyVRSupported"/>
+        <editor:EnumField name="buildTarget" binding-path="buildTarget" />
+        <engine:Foldout name="android field">
+            <engine:TextField label = "android manifest path" text="" binding-path="androidManifestPath"/>
+            <editor:EnumField name="minSdkVersion" binding-path="minSdkVersion" />
+            <editor:EnumField name="targetSdkVersion" binding-path="targetSdkVersion" />
+            <editor:EnumField name="androidArchitecture" binding-path="androidArchitecture" />
+        </engine:Foldout>
+    </engine:Box>
+</engine:UXML>

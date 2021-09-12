@@ -47,7 +47,7 @@ PlayerSettings:
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
-  m_ActiveColorSpace: 0
+  m_ActiveColorSpace: 1
   m_MTRendering: 1
   m_StackTraceTypes: 010000000100000001000000010000000100000001000000
   iosShowActivityIndicatorOnLoading: -1
@@ -607,7 +607,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    1: VIU_PLUGIN;VIU_PACKAGE
+    1: VIU_PLUGIN;VIU_PACKAGE;VIU_SIUMULATOR_SUPPORT
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}

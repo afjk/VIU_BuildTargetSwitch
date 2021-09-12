@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Samples/VIVE Input Utility/1.13.4/3. 3D Drag/3DDrag.unity
+    guid: 81e3be96007a87d4b877e77ebeae8fd8
   m_configObjects: {}

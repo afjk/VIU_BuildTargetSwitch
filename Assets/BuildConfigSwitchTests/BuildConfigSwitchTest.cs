@@ -156,6 +156,14 @@ namespace Tests
             Assert.IsTrue(Directory.Exists(testDirPath + "~"));
             Assert.IsFalse(File.Exists(testFilePath));
             Assert.IsTrue(File.Exists(testFilePath + "~"));
+
+            buildConfig.RestoreFiles();
+
+            Assert.IsTrue(Directory.Exists(testDirPath));
+            Assert.IsFalse(Directory.Exists(testDirPath + "~"));
+            Assert.IsTrue(File.Exists(testFilePath));
+            Assert.IsFalse(File.Exists(testFilePath + "~"));
+
         }
     }
 }

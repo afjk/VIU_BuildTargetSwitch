@@ -110,5 +110,32 @@ namespace AFJK.BuildConfigSwitch
                 }
             }
         }
+
+        public void RestoreFiles()
+        {
+            if (buildParam.evacuateFiles == null || buildParam.evacuateFiles.Length == 0) { return; }
+
+            foreach (var path in buildParam.evacuateFiles)
+            {
+                if (Directory.Exists(path + "~"))
+                {
+                    if (Directory.Exists(path))
+                    {
+                        Directory.Delete(path, true);
+                    }
+                    Directory.Move(path + "~", path);    
+                }
+
+                if (File.Exists(path + "~"))
+                {
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
+                    
+                    File.Move(path + "~", path);
+                }
+            }
+        }
     }
 }

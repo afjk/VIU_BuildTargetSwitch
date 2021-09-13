@@ -179,7 +179,7 @@ namespace Tests
         }
 
         [Test]
-        public void SetProjectSettingsTest()
+        public void SetProjectSettingsCase1Test()
         {
             var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
             testConfigSO.buildTarget = BuildTarget.Android;
@@ -203,5 +203,32 @@ namespace Tests
             Assert.AreEqual( AndroidSdkVersions.AndroidApiLevel30, PlayerSettings.Android.targetSdkVersion);
             Assert.IsFalse(PlayerSettings.GetVirtualRealitySupported(BuildTargetGroup.Android));
         }
+        
+        [Test]
+        public void SetProjectSettingsCase2Test()
+        {
+            var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
+            testConfigSO.buildTarget = BuildTarget.Android;
+            testConfigSO.backend = ScriptingImplementation.Mono2x;
+            testConfigSO.graphicsDeviceTypes = new[] {GraphicsDeviceType.Vulkan};
+            testConfigSO.minSdkVersion = AndroidSdkVersions.AndroidApiLevel19;
+            testConfigSO.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
+            testConfigSO.legacyVRSupported = true;
+
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+
+            buildConfig.ApplyProjectSettings();
+            
+            Assert.AreEqual( ScriptingImplementation.Mono2x,PlayerSettings.GetScriptingBackend(BuildTargetGroup.Android));
+
+            foreach (var graphicsDeviceType in testConfigSO.graphicsDeviceTypes)
+            {
+                Assert.IsTrue(PlayerSettings.GetGraphicsAPIs(BuildTarget.Android).Contains(graphicsDeviceType));
+            }
+            Assert.AreEqual( AndroidSdkVersions.AndroidApiLevel19, PlayerSettings.Android.minSdkVersion);
+            Assert.AreEqual( AndroidSdkVersions.AndroidApiLevelAuto, PlayerSettings.Android.targetSdkVersion);
+            Assert.IsTrue(PlayerSettings.GetVirtualRealitySupported(BuildTargetGroup.Android));
+        }
+
     }
 }

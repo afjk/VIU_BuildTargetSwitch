@@ -15,6 +15,7 @@
         <engine:Toggle text="Legacy VR Supported" binding-path="legacyVRSupported"/>
         <editor:EnumField name="buildTarget" binding-path="buildTarget" />
         <engine:Foldout name="Build field">
+            <editor:PropertyField binding-path="sceneList" />
             <engine:Toggle text="Development" binding-path="developmentBuild" />
             <engine:Toggle text="Build App Bundle(aab)" binding-path="appBundle_aab" />
         </engine:Foldout>

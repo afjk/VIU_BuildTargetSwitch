@@ -22,7 +22,9 @@ using UnityEngine.Rendering;
  * * 指定PackageのRemove
  * * 指定フォルダの無効化
  * * 無効化フォルダの有効化
- * * ProjectSettinsへの変更反映
+ * * ProjectSettinsへの設定反映
+ * * BuildSettingsへの設定反映
+ * * AndriodManifestの置き換え
  * * 指定VIU Settings Support Deviceのチェック
  */
 
@@ -237,13 +239,20 @@ namespace Tests
             testConfigSO.buildTarget = BuildTarget.Android;
             testConfigSO.developmentBuild = true;
             testConfigSO.appBundle_aab = true;
-
+            testConfigSO.sceneList = new[]
+            {
+                "Assets/BuildConfigSwitchTests/TestData/TestScene1.unity",
+                "Assets/BuildConfigSwitchTests/TestData/TestScene2.unity"
+            };
+            
             var buildConfig = new BuildConfigSwitcher(testConfigSO);
 
             buildConfig.ApplyBuildSettings();
             
             Assert.IsTrue(EditorUserBuildSettings.buildAppBundle);
             Assert.IsTrue(EditorUserBuildSettings.development);
+            Assert.AreEqual("Assets/BuildConfigSwitchTests/TestData/TestScene1.unity", EditorBuildSettings.scenes[0].path );
+            Assert.AreEqual("Assets/BuildConfigSwitchTests/TestData/TestScene2.unity", EditorBuildSettings.scenes[1].path );
         }
         
         
@@ -261,6 +270,9 @@ namespace Tests
             
             Assert.IsFalse(EditorUserBuildSettings.buildAppBundle);
             Assert.IsFalse(EditorUserBuildSettings.development);
+            
+            Assert.Zero(EditorBuildSettings.scenes.Length);
         }
+       
     }
 }

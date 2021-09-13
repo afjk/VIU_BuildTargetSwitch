@@ -179,6 +179,20 @@ namespace AFJK.BuildConfigSwitch
         {
             EditorUserBuildSettings.buildAppBundle = buildParam.appBundle_aab;
             EditorUserBuildSettings.development = buildParam.developmentBuild;
+            
+            List<EditorBuildSettingsScene> sceneList = new List<EditorBuildSettingsScene>();
+            
+            if( buildParam.sceneList == null || buildParam.sceneList.Length == 0)
+            {
+                EditorBuildSettings.scenes = null;
+                return;
+            }
+            
+            foreach (var scene in buildParam.sceneList)
+            {
+                sceneList.Add(new EditorBuildSettingsScene(scene, true));                
+            }
+            EditorBuildSettings.scenes = sceneList.ToArray();
         }
     }
 }

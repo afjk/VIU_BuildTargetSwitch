@@ -90,23 +90,24 @@ namespace AFJK.BuildConfigSwitch
 
             foreach (var path in buildParam.evacuateFiles)
             {
+                var ignorePath = path + "~";
                 if (Directory.Exists(path))
                 {
-                    if (Directory.Exists(path + "~"))
+                    if (Directory.Exists(ignorePath))
                     {
-                        Directory.Delete(path + "~", true);
+                        Directory.Delete(ignorePath, true);
                     }
-                    Directory.Move(path, path + "~");    
+                    Directory.Move(path, ignorePath);    
                 }
 
                 if (File.Exists(path))
                 {
-                    if (File.Exists(path + "~"))
+                    if (File.Exists(ignorePath))
                     {
-                        File.Delete(path + "~");
+                        File.Delete(ignorePath);
                     }
                     
-                    File.Move(path, path + "~");
+                    File.Move(path, ignorePath);
                 }
             }
         }
@@ -117,23 +118,25 @@ namespace AFJK.BuildConfigSwitch
 
             foreach (var path in buildParam.evacuateFiles)
             {
-                if (Directory.Exists(path + "~"))
+                var ignorePath = path + "~";
+
+                if (Directory.Exists(ignorePath))
                 {
                     if (Directory.Exists(path))
                     {
                         Directory.Delete(path, true);
                     }
-                    Directory.Move(path + "~", path);    
+                    Directory.Move(ignorePath, path);    
                 }
 
-                if (File.Exists(path + "~"))
+                if (File.Exists(ignorePath))
                 {
                     if (File.Exists(path))
                     {
                         File.Delete(path);
                     }
                     
-                    File.Move(path + "~", path);
+                    File.Move(ignorePath, path);
                 }
             }
         }

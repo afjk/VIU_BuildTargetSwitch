@@ -17,7 +17,8 @@ MonoBehaviour:
   removeDefines: []
   addPackages:
   - com.htc.upm.wave.xrsdk@4.1.1-r.3.1
-  removePackages: []
+  removePackages:
+  - com.unity.xr.oculus
   evacuateFiles: []
   legacyVRSupported: 0
   androidPackageName: com.afjk.test.wavevr

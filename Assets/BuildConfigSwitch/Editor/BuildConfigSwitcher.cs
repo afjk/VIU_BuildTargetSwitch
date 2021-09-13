@@ -14,6 +14,18 @@ namespace AFJK.BuildConfigSwitch
     {
         readonly BuildConfigScriptableObject buildParam;
         private readonly string ANDROID_MANIFEST_PATH = "Assets/Plugins/Android/AndroidManifest.xml";
+        
+        public static Dictionary<BuildConfigScriptableObject.TargetDevice, Action<bool>> SupportDeviceDic =
+            new Dictionary<BuildConfigScriptableObject.TargetDevice, Action<bool>>()
+            {
+                {BuildConfigScriptableObject.TargetDevice.Daydream, (val)=>{VIUSettingsEditor.supportDaydream = val;}},
+                {BuildConfigScriptableObject.TargetDevice.OculusAndroid, (val)=>{VIUSettingsEditor.supportOculusGo = val;}},
+                {BuildConfigScriptableObject.TargetDevice.Simurator, (val)=>{VIUSettingsEditor.supportSimulator = val;}},
+                {BuildConfigScriptableObject.TargetDevice.OpenVR, (val)=>{VIUSettingsEditor.supportOpenVR = val;}},
+                {BuildConfigScriptableObject.TargetDevice.OculusDesktop, (val)=>{VIUSettingsEditor.supportOculus = val;}},
+                {BuildConfigScriptableObject.TargetDevice.WaveVR, (val)=>{VIUSettingsEditor.supportWaveVR = val;}},
+            };
+        
         public BuildConfigSwitcher(BuildConfigScriptableObject buildParam)
         {
             this.buildParam = buildParam;
@@ -223,7 +235,10 @@ namespace AFJK.BuildConfigSwitch
 
         public void ApplySupportDevice()
         {
-            VIUSettingsEditor.supportOculusGo = true;
+            foreach (var supportDevice in SupportDeviceDic.Keys)
+            {
+                SupportDeviceDic[supportDevice](supportDevice == buildParam.supportDevice);
+            }
         }
 
         public void SwitchPlatform()

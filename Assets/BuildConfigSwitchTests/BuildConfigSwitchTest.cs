@@ -8,6 +8,7 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.Build.Content;
 using UnityEditor.PackageManager;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -23,6 +24,7 @@ using UnityEngine.Rendering;
  * * 指定フォルダの無効化
  * * 無効化フォルダの有効化
  * * ProjectSettinsへの設定反映
+ *   * Packagename
  * * BuildSettingsへの設定反映
  * * AndriodManifestの置き換え
  * * 指定VIU Settings Support Deviceのチェック
@@ -272,6 +274,18 @@ namespace Tests
             Assert.IsFalse(EditorUserBuildSettings.development);
             
             Assert.Zero(EditorBuildSettings.scenes.Length);
+        }
+        
+        [Test]
+        public void ApplyAndroidManifestCase1Test()
+        {
+            var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
+            testConfigSO.androidManifestPath = "Assets/BuildConfigSwitchTests/TestData/AndroidManifest-test1.xml";
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+
+            buildConfig.ApplyAndroidManifest();
+
+            Assert.IsTrue(File.Exists("Assets/Plugins/Android/AndroidManifest.xml"));
         }
        
     }

@@ -13,6 +13,7 @@ namespace AFJK.BuildConfigSwitch
     public class BuildConfigSwitcher
     {
         readonly BuildConfigScriptableObject buildParam;
+        private readonly string ANDROID_MANIFEST_PATH = "Assets/Plugins/Android/AndroidManifest.xml";
         public BuildConfigSwitcher(BuildConfigScriptableObject buildParam)
         {
             this.buildParam = buildParam;
@@ -193,6 +194,25 @@ namespace AFJK.BuildConfigSwitch
                 sceneList.Add(new EditorBuildSettingsScene(scene, true));                
             }
             EditorBuildSettings.scenes = sceneList.ToArray();
+        }
+
+        public void ApplyAndroidManifest()
+        {
+            if (File.Exists(ANDROID_MANIFEST_PATH))
+            {
+                File.Delete(ANDROID_MANIFEST_PATH);
+            }
+
+            if (!File.Exists(buildParam.androidManifestPath))
+            {
+                throw new Exception($"AndroidManifest.xml is not found path:{buildParam.androidManifestPath}");
+            }
+
+            if (!Directory.Exists(Path.GetDirectoryName(ANDROID_MANIFEST_PATH)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(ANDROID_MANIFEST_PATH));
+            }
+            File.Copy(buildParam.androidManifestPath, ANDROID_MANIFEST_PATH);
         }
     }
 }

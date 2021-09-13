@@ -90,14 +90,17 @@ namespace AFJK.BuildConfigSwitch
 
             foreach (var path in buildParam.evacuateFiles)
             {
+                var metaPath = path + ".meta";
                 var ignorePath = path + "~";
+                var ignoreMetaPath = metaPath + "~";
+
                 if (Directory.Exists(path))
                 {
                     if (Directory.Exists(ignorePath))
                     {
                         Directory.Delete(ignorePath, true);
                     }
-                    Directory.Move(path, ignorePath);    
+                    Directory.Move(path, ignorePath);
                 }
 
                 if (File.Exists(path))
@@ -109,6 +112,16 @@ namespace AFJK.BuildConfigSwitch
                     
                     File.Move(path, ignorePath);
                 }
+                
+                if (File.Exists(metaPath))
+                {
+                    if (File.Exists(ignoreMetaPath))
+                    {
+                        File.Delete(ignoreMetaPath);
+                    }
+                    
+                    File.Move(metaPath, ignoreMetaPath);
+                }
             }
         }
 
@@ -118,7 +131,10 @@ namespace AFJK.BuildConfigSwitch
 
             foreach (var path in buildParam.evacuateFiles)
             {
+                
+                var metaPath = path + ".meta";
                 var ignorePath = path + "~";
+                var ignoreMetaPath = metaPath + "~";
 
                 if (Directory.Exists(ignorePath))
                 {
@@ -137,6 +153,16 @@ namespace AFJK.BuildConfigSwitch
                     }
                     
                     File.Move(ignorePath, path);
+                }
+                
+                if (File.Exists(ignoreMetaPath))
+                {
+                    if (File.Exists(metaPath))
+                    {
+                        File.Delete(metaPath);
+                    }
+                    
+                    File.Move(ignoreMetaPath, metaPath );
                 }
             }
         }

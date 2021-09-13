@@ -154,15 +154,26 @@ namespace Tests
             
             Assert.IsFalse(Directory.Exists(testDirPath));
             Assert.IsTrue(Directory.Exists(testDirPath + "~"));
+            Assert.IsFalse(File.Exists(testDirPath + ".meta"));
+            Assert.IsTrue(File.Exists(testDirPath + ".meta~"));
             Assert.IsFalse(File.Exists(testFilePath));
             Assert.IsTrue(File.Exists(testFilePath + "~"));
+            Assert.IsFalse(File.Exists(testFilePath + ".meta"));
+            Assert.IsTrue(File.Exists(testFilePath + ".meta~"));
 
             buildConfig.RestoreFiles();
 
             Assert.IsTrue(Directory.Exists(testDirPath));
             Assert.IsFalse(Directory.Exists(testDirPath + "~"));
+            
+            Assert.IsTrue(File.Exists(testDirPath + ".meta"));
+            Assert.IsFalse(File.Exists(testDirPath + ".meta~"));
+            
             Assert.IsTrue(File.Exists(testFilePath));
             Assert.IsFalse(File.Exists(testFilePath + "~"));
+
+            Assert.IsTrue(File.Exists(testFilePath + ".meta"));
+            Assert.IsFalse(File.Exists(testFilePath + ".meta~"));
 
         }
     }

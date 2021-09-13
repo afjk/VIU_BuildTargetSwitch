@@ -14,12 +14,15 @@
         <editor:PropertyField binding-path="evacuateFilesPath"/>
         <engine:Toggle text="Legacy VR Supported" binding-path="legacyVRSupported"/>
         <editor:EnumField name="buildTarget" binding-path="buildTarget" />
+        <engine:Foldout name="Build field">
+            <engine:Toggle text="Development" binding-path="developmentBuild" />
+            <engine:Toggle text="Build App Bundle(aab)" binding-path="appBundle_aab" />
+        </engine:Foldout>
         <engine:Foldout name="android field">
             <engine:TextField label = "android manifest path" text="" binding-path="androidManifestPath"/>
             <editor:EnumField name="minSdkVersion" binding-path="minSdkVersion" />
             <editor:EnumField name="targetSdkVersion" binding-path="targetSdkVersion" />
             <editor:EnumField name="androidArchitecture" binding-path="androidArchitecture" />
-            <engine:Toggle text="Build App Bundle(aab)"  name="" binding-path="appBundle_aab" />
         </engine:Foldout>
     </engine:Box>
 </engine:UXML>

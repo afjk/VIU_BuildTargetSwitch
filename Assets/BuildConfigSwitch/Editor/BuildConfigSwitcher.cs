@@ -151,7 +151,6 @@ namespace AFJK.BuildConfigSwitch
                     {
                         File.Delete(path);
                     }
-                    
                     File.Move(ignorePath, path);
                 }
                 
@@ -161,7 +160,6 @@ namespace AFJK.BuildConfigSwitch
                     {
                         File.Delete(metaPath);
                     }
-                    
                     File.Move(ignoreMetaPath, metaPath );
                 }
             }
@@ -175,6 +173,12 @@ namespace AFJK.BuildConfigSwitch
             PlayerSettings.Android.minSdkVersion = buildParam.minSdkVersion;
             PlayerSettings.Android.targetSdkVersion = buildParam.targetSdkVersion;
             PlayerSettings.SetVirtualRealitySupported(GetBuildTargetGroup(buildParam.buildTarget), buildParam.legacyVRSupported);
+        }
+
+        public void ApplyBuildSettings()
+        {
+            EditorUserBuildSettings.buildAppBundle = buildParam.appBundle_aab;
+            EditorUserBuildSettings.development = buildParam.developmentBuild;
         }
     }
 }

@@ -6,10 +6,10 @@ using System.Threading;
 using AFJK.BuildConfigSwitch;
 using NUnit.Framework;
 using UnityEditor;
+using UnityEditor.Build.Content;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.UIElements;
 
 /*
  * ToDo:
@@ -230,5 +230,37 @@ namespace Tests
             Assert.IsTrue(PlayerSettings.GetVirtualRealitySupported(BuildTargetGroup.Android));
         }
 
+        [Test]
+        public void BuildSettingsCase1Test()
+        {
+            var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
+            testConfigSO.buildTarget = BuildTarget.Android;
+            testConfigSO.developmentBuild = true;
+            testConfigSO.appBundle_aab = true;
+
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+
+            buildConfig.ApplyBuildSettings();
+            
+            Assert.IsTrue(EditorUserBuildSettings.buildAppBundle);
+            Assert.IsTrue(EditorUserBuildSettings.development);
+        }
+        
+        
+        [Test]
+        public void BuildSettingsCase2Test()
+        {
+            var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
+            testConfigSO.buildTarget = BuildTarget.Android;
+            testConfigSO.developmentBuild = false;
+            testConfigSO.appBundle_aab = false;
+
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+
+            buildConfig.ApplyBuildSettings();
+            
+            Assert.IsFalse(EditorUserBuildSettings.buildAppBundle);
+            Assert.IsFalse(EditorUserBuildSettings.development);
+        }
     }
 }

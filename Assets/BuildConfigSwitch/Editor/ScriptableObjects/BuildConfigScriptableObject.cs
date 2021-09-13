@@ -20,5 +20,6 @@ namespace AFJK.BuildConfigSwitch
         public AndroidSdkVersions targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
         public AndroidArchitecture androidArchitecture = AndroidArchitecture.ARM64;
         public bool appBundle_aab = false;
+        public bool developmentBuild = false;
     }
 }

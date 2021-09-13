@@ -8,6 +8,7 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 /*
@@ -175,6 +176,32 @@ namespace Tests
             Assert.IsTrue(File.Exists(testFilePath + ".meta"));
             Assert.IsFalse(File.Exists(testFilePath + ".meta~"));
 
+        }
+
+        [Test]
+        public void SetProjectSettingsTest()
+        {
+            var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
+            testConfigSO.buildTarget = BuildTarget.Android;
+            testConfigSO.backend = ScriptingImplementation.IL2CPP;
+            testConfigSO.graphicsDeviceTypes = new[] {GraphicsDeviceType.OpenGLES3, GraphicsDeviceType.OpenGLES2};
+            testConfigSO.minSdkVersion = AndroidSdkVersions.AndroidApiLevel24;
+            testConfigSO.targetSdkVersion = AndroidSdkVersions.AndroidApiLevel30;
+            testConfigSO.legacyVRSupported = false;
+
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+
+            buildConfig.ApplyProjectSettings();
+            
+            Assert.AreEqual( ScriptingImplementation.IL2CPP,PlayerSettings.GetScriptingBackend(BuildTargetGroup.Android));
+
+            foreach (var graphicsDeviceType in testConfigSO.graphicsDeviceTypes)
+            {
+                Assert.IsTrue(PlayerSettings.GetGraphicsAPIs(BuildTarget.Android).Contains(graphicsDeviceType));
+            }
+            Assert.AreEqual( AndroidSdkVersions.AndroidApiLevel24, PlayerSettings.Android.minSdkVersion);
+            Assert.AreEqual( AndroidSdkVersions.AndroidApiLevel30, PlayerSettings.Android.targetSdkVersion);
+            Assert.IsFalse(PlayerSettings.GetVirtualRealitySupported(BuildTargetGroup.Android));
         }
     }
 }

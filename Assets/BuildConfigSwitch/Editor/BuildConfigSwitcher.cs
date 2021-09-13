@@ -20,7 +20,7 @@ namespace AFJK.BuildConfigSwitch
 
         public void ApplyDefineSymbols()
         {
-            var defineSymbols = PlayerSettings.GetScriptingDefineSymbolsForGroup(GetBuildTarget(buildParam.buildTarget));
+            var defineSymbols = PlayerSettings.GetScriptingDefineSymbolsForGroup(GetBuildTargetGroup(buildParam.buildTarget));
 
             var defineSymbolList = defineSymbols.Split(';').ToList();
 
@@ -40,10 +40,10 @@ namespace AFJK.BuildConfigSwitch
             
             Debug.Log(newDefineSymbols);
             
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(GetBuildTarget(buildParam.buildTarget),newDefineSymbols );
+            PlayerSettings.SetScriptingDefineSymbolsForGroup(GetBuildTargetGroup(buildParam.buildTarget),newDefineSymbols );
         }
 
-        private BuildTargetGroup GetBuildTarget(BuildTarget buildTarget)
+        private BuildTargetGroup GetBuildTargetGroup(BuildTarget buildTarget)
         {
             switch (buildTarget)
             {
@@ -165,6 +165,16 @@ namespace AFJK.BuildConfigSwitch
                     File.Move(ignoreMetaPath, metaPath );
                 }
             }
+        }
+
+        public void ApplyProjectSettings()
+        {
+            PlayerSettings.SetScriptingBackend(GetBuildTargetGroup(buildParam.buildTarget), buildParam.backend);
+
+            PlayerSettings.SetGraphicsAPIs(buildParam.buildTarget, buildParam.graphicsDeviceTypes);
+            PlayerSettings.Android.minSdkVersion = buildParam.minSdkVersion;
+            PlayerSettings.Android.targetSdkVersion = buildParam.targetSdkVersion;
+            PlayerSettings.SetVirtualRealitySupported(GetBuildTargetGroup(buildParam.buildTarget), buildParam.legacyVRSupported);
         }
     }
 }

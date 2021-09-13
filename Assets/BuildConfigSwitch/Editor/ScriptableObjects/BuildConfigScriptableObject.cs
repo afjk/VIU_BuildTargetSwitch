@@ -6,6 +6,18 @@ namespace AFJK.BuildConfigSwitch
     [CreateAssetMenu(fileName = "BuildConfig", menuName = "ScriptableObjects/BuildConfig", order = 1)]
     public class BuildConfigScriptableObject : ScriptableObject
     {
+        public enum TargetDevice
+        {
+            Simurator,
+            OpenVR,
+            OculusDesktop,
+            WindowsMR,
+            Daydream,
+            WaveVR,
+            OculusAndroid,
+        }
+
+        public TargetDevice supportDevice;
         public string[] addDefines;
         public string[] removeDefines;
         public string[] addPackages;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using NUnit.Framework.Constraints;
+using HTC.UnityPlugin.Vive;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEngine;
@@ -219,6 +219,29 @@ namespace AFJK.BuildConfigSwitch
                 Directory.CreateDirectory(Path.GetDirectoryName(ANDROID_MANIFEST_PATH));
             }
             File.Copy(buildParam.androidManifestPath, ANDROID_MANIFEST_PATH);
+        }
+
+        public void ApplySupportDevice()
+        {
+            VIUSettingsEditor.supportOculusGo = true;
+        }
+
+        public void SwitchPlatform()
+        {
+            switch (buildParam.buildTarget)
+            {
+                case BuildTarget.StandaloneWindows64:
+                    EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+                    break;
+                case BuildTarget.Android:
+                    EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android);
+                    break;
+                case BuildTarget.WebGL:
+                    EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.WebGL, BuildTarget.WebGL);
+                    break;
+                default:
+                    throw new Exception($"Unsopport target:{buildParam.buildTarget}");
+            }
         }
     }
 }

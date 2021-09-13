@@ -10,31 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e2104f9892f14f4fa276b28b92036f7, type: 3}
-  m_Name: BuildConfigTest
+  m_Name: BuildConfigOculusAndroid
   m_EditorClassIdentifier: 
   supportDevice: 6
-  addDefines:
-  - TestDefine1
-  - TestDefine2
-  - TestDefine3
-  removeDefines:
-  - TestDefine2
+  addDefines: []
+  removeDefines: []
   addPackages:
-  - 
-  removePackages:
-  - 
-  evacuateFiles:
-  - 
+  - com.unity.xr.oculus
+  removePackages: []
+  evacuateFiles: []
   legacyVRSupported: 0
-  androidPackageName: 
+  androidPackageName: com.afjk.test.oculus
   androidManifestPath: 
   buildTarget: 13
-  graphicsDeviceTypes: 08000000
+  graphicsDeviceTypes: 15000000
   backend: 1
   minSdkVersion: 26
   targetSdkVersion: 0
   androidArchitecture: 2
   sceneList:
-  - Assets/Scenes/SampleScene.unity
-  appBundle_aab: 1
-  developmentBuild: 1
+  - Samples/VIVE Input Utility/1.13.4/3.3D Drag/3DDrag
+  appBundle_aab: 0
+  developmentBuild: 0

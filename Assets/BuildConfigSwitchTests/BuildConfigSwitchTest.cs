@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Remoting;
 using System.Threading;
 using AFJK.BuildConfigSwitch;
+using HTC.UnityPlugin.Vive;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.Build.Content;
@@ -320,6 +321,61 @@ namespace Tests
             buildConfig.ApplyAndroidManifest();
 
             Assert.IsFalse(File.Exists("Assets/Plugins/Android/AndroidManifest.xml"));
+        }
+
+        [Test]
+        public void SwitchPlatformAndroidTest()
+        {
+            var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
+            testConfigSO.buildTarget = BuildTarget.Android;
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+            
+            buildConfig.SwitchPlatform();
+            
+            Assert.AreEqual(BuildTarget.Android, EditorUserBuildSettings.activeBuildTarget);
+        }
+
+        [Test]
+        public void SwitchPlatformWindowsTest()
+        {
+            var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
+            testConfigSO.buildTarget = BuildTarget.StandaloneWindows64;
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+            
+            buildConfig.SwitchPlatform();
+            
+            Assert.AreEqual(BuildTarget.StandaloneWindows64, EditorUserBuildSettings.activeBuildTarget);
+        }
+
+        
+        [Test]
+        public void SwitchPlatformWebGLTest()
+        {
+            var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
+            testConfigSO.buildTarget = BuildTarget.WebGL;
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+            
+            buildConfig.SwitchPlatform();
+            
+            Assert.AreEqual(BuildTarget.WebGL, EditorUserBuildSettings.activeBuildTarget);
+        }
+        
+        [Test]
+        public void VIUSettingSupportDeviceOculusAndroidTest()
+        {
+            var testConfigSO = AssetDatabase.LoadAssetAtPath<BuildConfigScriptableObject>("Assets/BuildConfigSwitchTests/TestData/BuildConfigOculusAndroid.asset");
+            testConfigSO.supportDevice = BuildConfigScriptableObject.TargetDevice.OculusAndroid;
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+
+            buildConfig.SwitchPlatform();
+            buildConfig.ApplyPackage();
+            buildConfig.ApplyAndroidManifest();
+            buildConfig.ApplyDefineSymbols();
+            buildConfig.ApplyProjectSettings();
+            buildConfig.ApplySupportDevice();
+            
+            Assert.IsTrue(VIUSettingsEditor.supportOculusGo );
+            
         }
     }
 }

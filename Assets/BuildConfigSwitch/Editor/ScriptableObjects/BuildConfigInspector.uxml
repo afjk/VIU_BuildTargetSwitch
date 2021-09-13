@@ -6,6 +6,10 @@
     xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
 >
     <engine:Box>
+        <engine:Label text="Support Device"/>
+        <editor:EnumField binding-path="supportDevice" />
+        <engine:Label text="Platform"/>
+        <editor:EnumField name="buildTarget" binding-path="buildTarget" />
         <editor:PropertyField binding-path="graphicsDeviceTypes" />
         <editor:PropertyField binding-path="addDefines" />
         <editor:PropertyField binding-path="removeDefines"/>
@@ -13,7 +17,7 @@
         <editor:PropertyField binding-path="removePackages"/>
         <editor:PropertyField binding-path="evacuateFilesPath"/>
         <engine:Toggle text="Legacy VR Supported" binding-path="legacyVRSupported"/>
-        <editor:EnumField name="buildTarget" binding-path="buildTarget" />
+        <editor:EnumField name="backend" binding-path="backend" />
         <engine:Foldout name="Build field">
             <editor:PropertyField binding-path="sceneList" />
             <engine:Toggle text="Development" binding-path="developmentBuild" />

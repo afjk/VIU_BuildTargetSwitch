@@ -286,7 +286,36 @@ namespace Tests
             buildConfig.ApplyAndroidManifest();
 
             Assert.IsTrue(File.Exists("Assets/Plugins/Android/AndroidManifest.xml"));
+            var expectManifest = File.ReadAllText(testConfigSO.androidManifestPath);
+            var actualManifest = File.ReadAllText("Assets/Plugins/Android/AndroidManifest.xml");
+            Assert.AreEqual(expectManifest, actualManifest);
         }
        
+        [Test]
+        public void ApplyAndroidManifestCase2Test()
+        {
+            var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
+            testConfigSO.androidManifestPath = "Assets/BuildConfigSwitchTests/TestData/AndroidManifest-test2.xml";
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+
+            buildConfig.ApplyAndroidManifest();
+
+            Assert.IsTrue(File.Exists("Assets/Plugins/Android/AndroidManifest.xml"));
+            var expectManifest = File.ReadAllText(testConfigSO.androidManifestPath);
+            var actualManifest = File.ReadAllText("Assets/Plugins/Android/AndroidManifest.xml");
+            Assert.AreEqual(expectManifest, actualManifest);
+        }
+        
+        [Test]
+        public void ApplyAndroidManifestCase3Test()
+        {
+            var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
+            testConfigSO.androidManifestPath = null;
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+
+            buildConfig.ApplyAndroidManifest();
+
+            Assert.IsFalse(File.Exists("Assets/Plugins/Android/AndroidManifest.xml"));
+        }
     }
 }

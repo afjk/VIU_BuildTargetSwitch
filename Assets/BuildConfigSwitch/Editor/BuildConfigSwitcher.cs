@@ -205,7 +205,7 @@ namespace AFJK.BuildConfigSwitch
 
             if (!File.Exists(buildParam.androidManifestPath))
             {
-                throw new Exception($"AndroidManifest.xml is not found path:{buildParam.androidManifestPath}");
+                return;
             }
 
             if (!Directory.Exists(Path.GetDirectoryName(ANDROID_MANIFEST_PATH)))

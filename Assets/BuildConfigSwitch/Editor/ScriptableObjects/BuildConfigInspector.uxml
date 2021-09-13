@@ -20,6 +20,7 @@
             <engine:Toggle text="Build App Bundle(aab)" binding-path="appBundle_aab" />
         </engine:Foldout>
         <engine:Foldout name="android field">
+            <engine:TextField label = "android package name" text="" binding-path="androidPackageName"/>
             <engine:TextField label = "android manifest path" text="" binding-path="androidManifestPath"/>
             <editor:EnumField name="minSdkVersion" binding-path="minSdkVersion" />
             <editor:EnumField name="targetSdkVersion" binding-path="targetSdkVersion" />

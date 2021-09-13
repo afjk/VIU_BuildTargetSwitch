@@ -192,6 +192,7 @@ namespace Tests
             testConfigSO.minSdkVersion = AndroidSdkVersions.AndroidApiLevel24;
             testConfigSO.targetSdkVersion = AndroidSdkVersions.AndroidApiLevel30;
             testConfigSO.legacyVRSupported = false;
+            testConfigSO.androidPackageName = "com.afjk.test1";
 
             var buildConfig = new BuildConfigSwitcher(testConfigSO);
 
@@ -206,6 +207,7 @@ namespace Tests
             Assert.AreEqual( AndroidSdkVersions.AndroidApiLevel24, PlayerSettings.Android.minSdkVersion);
             Assert.AreEqual( AndroidSdkVersions.AndroidApiLevel30, PlayerSettings.Android.targetSdkVersion);
             Assert.IsFalse(PlayerSettings.GetVirtualRealitySupported(BuildTargetGroup.Android));
+            Assert.AreEqual("com.afjk.test1", PlayerSettings.GetApplicationIdentifier(BuildTargetGroup.Android));
         }
         
         [Test]
@@ -218,6 +220,7 @@ namespace Tests
             testConfigSO.minSdkVersion = AndroidSdkVersions.AndroidApiLevel19;
             testConfigSO.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
             testConfigSO.legacyVRSupported = true;
+            testConfigSO.androidPackageName = "com.afjk.test2";
 
             var buildConfig = new BuildConfigSwitcher(testConfigSO);
 
@@ -232,6 +235,7 @@ namespace Tests
             Assert.AreEqual( AndroidSdkVersions.AndroidApiLevel19, PlayerSettings.Android.minSdkVersion);
             Assert.AreEqual( AndroidSdkVersions.AndroidApiLevelAuto, PlayerSettings.Android.targetSdkVersion);
             Assert.IsTrue(PlayerSettings.GetVirtualRealitySupported(BuildTargetGroup.Android));
+            Assert.AreEqual("com.afjk.test2", PlayerSettings.GetApplicationIdentifier(BuildTargetGroup.Android));
         }
 
         [Test]

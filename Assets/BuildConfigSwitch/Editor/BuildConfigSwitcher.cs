@@ -171,9 +171,15 @@ namespace AFJK.BuildConfigSwitch
             PlayerSettings.SetScriptingBackend(GetBuildTargetGroup(buildParam.buildTarget), buildParam.backend);
 
             PlayerSettings.SetGraphicsAPIs(buildParam.buildTarget, buildParam.graphicsDeviceTypes);
-            PlayerSettings.Android.minSdkVersion = buildParam.minSdkVersion;
-            PlayerSettings.Android.targetSdkVersion = buildParam.targetSdkVersion;
             PlayerSettings.SetVirtualRealitySupported(GetBuildTargetGroup(buildParam.buildTarget), buildParam.legacyVRSupported);
+
+            if (buildParam.buildTarget == BuildTarget.Android)
+            {
+                PlayerSettings.Android.minSdkVersion = buildParam.minSdkVersion;
+                PlayerSettings.Android.targetSdkVersion = buildParam.targetSdkVersion;
+                PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, buildParam.androidPackageName);
+            }
+            
         }
 
         public void ApplyBuildSettings()

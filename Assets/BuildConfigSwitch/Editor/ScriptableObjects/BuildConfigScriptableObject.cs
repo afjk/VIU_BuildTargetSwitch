@@ -12,6 +12,7 @@ namespace AFJK.BuildConfigSwitch
         public string[] removePackages;
         public string[] evacuateFiles;
         public bool legacyVRSupported = false;
+        public string androidPackageName;
         public string androidManifestPath;
         public BuildTarget buildTarget = BuildTarget.Android;
         public UnityEngine.Rendering.GraphicsDeviceType[] graphicsDeviceTypes;

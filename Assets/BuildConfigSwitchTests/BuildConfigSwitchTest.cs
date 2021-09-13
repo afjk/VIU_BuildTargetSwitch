@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
 using System.Threading;
@@ -137,6 +138,24 @@ namespace Tests
             wavePackage = result.First(x => x.name == "com.htc.upm.wave.xrsdk");
             Assert.AreEqual("com.htc.upm.wave.xrsdk",  wavePackage.name);
         }
+
         
+        [Test]
+        public void EvacuateFileTest()
+        {
+            var testConfigSO = ScriptableObject.CreateInstance<BuildConfigScriptableObject>();
+            var testDirPath = "Assets/BuildConfigSwitchTests/TestData/TestFolder/Dir1";
+            var testFilePath = "Assets/BuildConfigSwitchTests/TestData/TestFolder/File1.txt";
+            
+            testConfigSO.evacuateFiles = new[] {testDirPath, testFilePath};
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+            
+            buildConfig.EvacuateFiles();
+            
+            Assert.IsFalse(Directory.Exists(testDirPath));
+            Assert.IsTrue(Directory.Exists(testDirPath + "~"));
+            Assert.IsFalse(File.Exists(testFilePath));
+            Assert.IsTrue(File.Exists(testFilePath + "~"));
+        }
     }
 }

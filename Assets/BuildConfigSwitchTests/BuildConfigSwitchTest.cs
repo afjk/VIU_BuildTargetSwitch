@@ -364,7 +364,6 @@ namespace Tests
         public void VIUSettingSupportDeviceOculusAndroidTest()
         {
             var testConfigSO = AssetDatabase.LoadAssetAtPath<BuildConfigScriptableObject>("Assets/BuildConfigSwitchTests/TestData/BuildConfigOculusAndroid.asset");
-            testConfigSO.supportDevice = BuildConfigScriptableObject.TargetDevice.OculusAndroid;
             var buildConfig = new BuildConfigSwitcher(testConfigSO);
 
             buildConfig.SwitchPlatform();
@@ -376,6 +375,39 @@ namespace Tests
             
             Assert.IsTrue(VIUSettingsEditor.supportOculusGo );
             
+        }
+        
+        [Test]
+        public void VIUSettingSupportDeviceOculusDesktopTest()
+        {
+            var testConfigSO = AssetDatabase.LoadAssetAtPath<BuildConfigScriptableObject>("Assets/BuildConfigSwitchTests/TestData/BuildConfigOculusDesktop.asset");
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+
+            buildConfig.SwitchPlatform();
+            buildConfig.ApplyPackage();
+            buildConfig.ApplyAndroidManifest();
+            buildConfig.ApplyDefineSymbols();
+            buildConfig.ApplyProjectSettings();
+            buildConfig.ApplySupportDevice();
+            
+            Assert.IsTrue(VIUSettingsEditor.supportOculus );
+        }
+        
+        
+        [Test]
+        public void VIUSettingSupportDeviceWaveVRTest()
+        {
+            var testConfigSO = AssetDatabase.LoadAssetAtPath<BuildConfigScriptableObject>("Assets/BuildConfigSwitchTests/TestData/BuildConfigWaveVR.asset");
+            var buildConfig = new BuildConfigSwitcher(testConfigSO);
+
+            buildConfig.SwitchPlatform();
+            buildConfig.ApplyPackage();
+            buildConfig.ApplyAndroidManifest();
+            buildConfig.ApplyDefineSymbols();
+            buildConfig.ApplyProjectSettings();
+            buildConfig.ApplySupportDevice();
+            
+            Assert.IsTrue(VIUSettingsEditor.supportWaveVR );
         }
     }
 }

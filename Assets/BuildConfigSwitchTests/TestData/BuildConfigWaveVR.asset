@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e2104f9892f14f4fa276b28b92036f7, type: 3}
+  m_Name: BuildConfigWaveVR
+  m_EditorClassIdentifier: 
+  supportDevice: 5
+  addDefines: []
+  removeDefines: []
+  addPackages:
+  - com.htc.upm.wave.xrsdk@4.1.1-r.3.1
+  removePackages: []
+  evacuateFiles: []
+  legacyVRSupported: 0
+  androidPackageName: com.afjk.test.wavevr
+  androidManifestPath: 
+  buildTarget: 13
+  graphicsDeviceTypes: 0b000000
+  backend: 1
+  minSdkVersion: 29
+  targetSdkVersion: 0
+  androidArchitecture: 2
+  sceneList:
+  - Samples/VIVE Input Utility/1.13.4/3.3D Drag/3DDrag
+  appBundle_aab: 0
+  developmentBuild: 0
